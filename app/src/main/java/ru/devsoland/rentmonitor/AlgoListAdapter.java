@@ -13,7 +13,6 @@ import ru.devsoland.rentmonitor.model.Pojo.RentalAlgo;
 class AlgoListAdapter extends RecyclerView.Adapter<AlgoListAdapter.ViewHolder>  {
 
 
-
     private RentalAlgo algos;
 
 
@@ -23,9 +22,22 @@ class AlgoListAdapter extends RecyclerView.Adapter<AlgoListAdapter.ViewHolder>  
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView algoName;
+        private TextView profitBtc;
+        private TextView price;
+        private TextView profitUsd;
+        private TextView available;
+        private TextView rented;
+
+
+
         public ViewHolder(View itemView) {
             super(itemView);
             algoName = itemView.findViewById(R.id.algo_name);
+            profitBtc = itemView.findViewById(R.id.profit_btc);
+            price = itemView.findViewById(R.id.price);
+            profitUsd = itemView.findViewById(R.id.profit_usd);
+            available = itemView.findViewById(R.id.available);
+            rented = itemView.findViewById(R.id.rented);
         }
     }
 
@@ -43,6 +55,11 @@ class AlgoListAdapter extends RecyclerView.Adapter<AlgoListAdapter.ViewHolder>  
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.algoName.setText(algos.getData().get(position).getDisplay());
+        holder.profitBtc.setText(algos.getData().get(position).getStats().getPrices().getLast10().getAmount());
+        holder.price.setText(algos.getData().get(position).getStats().getPrices().getLast10().getAmount());
+        holder.profitUsd.setText(algos.getData().get(position).getStats().getPrices().getLast10().getAmount());
+        holder.available.setText(algos.getData().get(position).getStats().getAvailable().getRigs());
+        holder.rented.setText(algos.getData().get(position).getStats().getRented().getRigs());
 
     }
 
