@@ -5,25 +5,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import java.util.ArrayList;
+import ru.devsoland.rentmonitor.model.Pojo.RentalAlgo;
 
-import ru.devsoland.rentmonitor.model.RentalAlgo;
 
 class AlgoListAdapter extends RecyclerView.Adapter<AlgoListAdapter.ViewHolder>  {
 
-    private ArrayList<RentalAlgo> algos;
-    public View view;
 
-    public AlgoListAdapter(ArrayList<RentalAlgo> algos) {
+
+    private RentalAlgo algos;
+
+
+    public AlgoListAdapter(RentalAlgo algos) {
         this.algos = algos;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
+        private TextView algoName;
         public ViewHolder(View itemView) {
             super(itemView);
-            view = itemView;
+            algoName = itemView.findViewById(R.id.algo_name);
         }
     }
 
@@ -40,14 +42,14 @@ class AlgoListAdapter extends RecyclerView.Adapter<AlgoListAdapter.ViewHolder>  
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-
+        holder.algoName.setText(algos.getData().get(position).getDisplay());
 
     }
 
     @Override
     public int getItemCount() {
-        return algos.size();
+        if (algos!=null) return algos.getData().size();
+        else return 0;
     }
 
 
