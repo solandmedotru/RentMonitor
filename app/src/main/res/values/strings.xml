@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">RentMonitor</string>
+    <string name="default_x16s_hasharate">200</string>
+    <string name="key_x16s_hasharate">key_x16s_algo</string>
+    <string name="title_x16s_algo">x16s</string>
+    <string name="default_x16s_summary">200 mh/s</string>
+
+    <string name="default_x16r_hasharate">200</string>
+    <string name="key_x16r_hasharate">key_x16r_algo</string>
+    <string name="title_x16r_algo">x16r</string>
+    <string name="default_x16r_summary">200 mh/s</string>
+    <string name="action_settings">Settings</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Hashrates">
+        <EditTextPreference
+            android:defaultValue="@string/default_x16s_hasharate"
+            android:key="@string/key_x16s_hasharate"
+            android:summary="@string/default_x16s_summary"
+            android:title="@string/title_x16s_algo" />
+        <EditTextPreference
+            android:defaultValue="@string/default_x16r_hasharate"
+            android:key="@string/key_x16r_hasharate"
+            android:summary="@string/default_x16r_summary"
+            android:title="@string/title_x16r_algo" />
+    </PreferenceCategory>
+</PreferenceScreen>
