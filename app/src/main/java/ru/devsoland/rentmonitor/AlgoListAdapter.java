@@ -1,5 +1,8 @@
 package ru.devsoland.rentmonitor;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,10 +17,13 @@ class AlgoListAdapter extends RecyclerView.Adapter<AlgoListAdapter.ViewHolder>  
 
 
     private RentalAlgo algos;
+    private Context context;
 
 
-    public AlgoListAdapter(RentalAlgo algos) {
+
+    public AlgoListAdapter(RentalAlgo algos, Context context) {
         this.algos = algos;
+        this.context = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,13 +60,30 @@ class AlgoListAdapter extends RecyclerView.Adapter<AlgoListAdapter.ViewHolder>  
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.algoName.setText(algos.getData().get(position).getDisplay());
-        holder.profitBtc.setText(algos.getData().get(position).getStats().getPrices().getLast10().getAmount());
-        holder.price.setText(algos.getData().get(position).getStats().getPrices().getLast10().getAmount());
-        holder.profitUsd.setText(algos.getData().get(position).getStats().getPrices().getLast10().getAmount());
-        holder.available.setText(algos.getData().get(position).getStats().getAvailable().getRigs());
-        holder.rented.setText(algos.getData().get(position).getStats().getRented().getRigs());
 
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(context);
+
+        float algoHashrate = Float.parseFloat(prefs.getString(algos.getData().get(position).getName(), "0"));
+
+        String algoName = algos.getData().get(position).getDisplay();
+        String last10Price = algos.getData().get(position).getStats().getPrices().getLast10().getAmount();
+        String lastPrice = algos.getData().get(position).getStats().getPrices().getLast().getAmount();
+        String rigsRented = algos.getData().get(position).getStats().getRented().getRigs();
+        String rigsAvalable = algos.getData().get(position).getStats().getAvailable().getRigs();
+
+        holder.algoName.setText(algoName);
+        holder.profitBtc.setText(getProfitInBTC(last10Price, algoHashrate));
+        holder.price.setText(getProfitInBTC(lastPrice, algoHashrate));
+        holder.profitUsd.setText(last10Price);
+        holder.available.setText(rigsAvalable);
+        holder.rented.setText(rigsRented);
+
+    }
+
+    private String getProfitInBTC(String hashrateString, float algoHashrate) {
+        float v = Float.parseFloat(hashrateString);
+        return v * algoHashrate + " Btc";
     }
 
     @Override

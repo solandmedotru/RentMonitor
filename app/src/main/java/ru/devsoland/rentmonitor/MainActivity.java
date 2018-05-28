@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
                     algos = response.body();
-                    adapter = new AlgoListAdapter(algos);
+                    adapter = new AlgoListAdapter(algos, getApplicationContext());
 
                     layoutManager = new LinearLayoutManager(getApplicationContext());
                     algoList.setLayoutManager(layoutManager);
